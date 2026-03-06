@@ -22,6 +22,13 @@ Covers advanced Python concepts:
 - Math and Random modules
 - JSON parsing and file operations
 
+## Practice5
+Topics:
+- Python Regular Expressions
+- Regex syntax and functions
+- Receipt parsing using regex
+- Structured JSON output
+
 Each topic is separated into different Python files for better structure and readability.
 
 All examples are based on W3Schools Python tutorials.
