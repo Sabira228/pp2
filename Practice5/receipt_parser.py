@@ -60,9 +60,12 @@ with open("Practice5/raw.txt", "r", encoding="utf-8") as file:
     raw_text = file.read()
 
 # 1. Extract all prices
-# This finds numbers like 308,00 or 1 200,00
-prices = re.findall(r"\d[\d ]*,\d{2}", raw_text)
-print("All prices:", prices)
+# Extract total price for each product
+prices = re.findall(r"x\s*\d[\d ]*,\d{2}\n([\d ]*,\d{2})", raw_text)
+
+print("Product total prices:")
+for price in prices:
+    print(price)
 
 # 2. Extract product names
 # Product name is usually between item number and quantity line
