@@ -29,6 +29,18 @@ Topics:
 - Receipt parsing using regex
 - Structured JSON output
 
+
+
+
+## Practice6 
+Topics:
+
+-File handling (read, write, append, delete)
+-Working with directories (create, list, move)
+os, shutil, and pathlib modules
+-Built-in functions (map, filter, reduce, enumerate, zip, sorted)
+-Type conversion and type checking
+
 Each topic is separated into different Python files for better structure and readability.
 
 All examples are based on W3Schools Python tutorials.
