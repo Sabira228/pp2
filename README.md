@@ -41,6 +41,27 @@ os, shutil, and pathlib modules
 -Built-in functions (map, filter, reduce, enumerate, zip, sorted)
 -Type conversion and type checking
 
+
+## Practice7
+Topics:
+- Python and PostgreSQL integration
+- Connecting to PostgreSQL with psycopg2
+- Creating and managing a PhoneBook database
+- Inserting contacts from CSV and console input
+- Updating existing contacts
+- Querying contacts with filters
+- Deleting contacts by username or phone number
+
+## Practice8
+Topics:
+- PostgreSQL functions and stored procedures
+- PL/pgSQL basics
+- Pattern-based search function
+- Upsert procedure for contacts
+- Bulk insert procedure with phone validation
+- Pagination with LIMIT and OFFSET
+- Delete procedure by username or phone
+
 Each topic is separated into different Python files for better structure and readability.
 
 All examples are based on W3Schools Python tutorials.
