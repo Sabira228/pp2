@@ -65,3 +65,9 @@ Topics:
 Each topic is separated into different Python files for better structure and readability.
 
 All examples are based on W3Schools Python tutorials.
+
+
+
+
+C:/Users/User/AppData/Local/Programs/Python/Python312/python.exe c:/Users/User/Desktop/p2/Practice7/phonebook.py
+C:/Users/User/AppData/Local/Programs/Python/Python312/python.exe c:/Users/User/Desktop/p2/Practice8/phonebook.py

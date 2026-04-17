@@ -1,6 +1,10 @@
 import csv
 import psycopg2
 from config import load_config
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+CSV_FILE = BASE_DIR / "contacts.csv"
 
 
 def get_connection():
@@ -207,7 +211,7 @@ def menu():
         if choice == "1":
             create_table()
         elif choice == "2":
-            insert_from_csv("contacts.csv")
+            insert_from_csv(CSV_FILE)
         elif choice == "3":
             insert_from_console()
         elif choice == "4":
