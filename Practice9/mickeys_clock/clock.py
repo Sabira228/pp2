@@ -8,25 +8,51 @@ class MickeyClock:
         self.width, self.height = self.screen.get_size()
         self.center = (self.width // 2, self.height // 2)
 
-        self.hand_image = pygame.image.load("images/mickey_hand.png").convert_alpha()
+        self.original_hand = pygame.image.load("C:/Users/User/Desktop/p2/Practice9/mickeys_clock/images/mickey_hand.png").convert_alpha()
 
-        # Minute hand is a bit longer
-        self.minute_hand = pygame.transform.smoothscale(self.hand_image, (180, 30))
-        self.second_hand = pygame.transform.smoothscale(self.hand_image, (140, 24))
+        self.minute_hand = pygame.transform.smoothscale(self.original_hand, (180, 30))
+        self.second_hand = pygame.transform.smoothscale(self.original_hand, (140, 24))
 
         self.font = pygame.font.SysFont("Arial", 28, bold=True)
 
-    def get_time_data(self):
+    def get_angles(self):
         now = datetime.datetime.now()
         minute = now.minute
         second = now.second
 
-        # 360 degrees / 60 units = 6 degrees per minute/second
-        # Negative angle = clockwise rotation in pygame.rotate
-        minute_angle = -(minute * 6)
-        second_angle = -(second * 6)
+        # include seconds so minute hand is accurate
+        minute_angle = (minute + second / 60) * 6
+        second_angle = second * 6
 
         return minute, second, minute_angle, second_angle
+
+    def make_rotatable_hand(self, hand_surface):
+        """
+        Creates a transparent square surface.
+        The BASE of the hand is placed at the center of this square.
+        Then rotating this square makes the hand behave like a real clock hand.
+        """
+        size = 400
+        canvas = pygame.Surface((size, size), pygame.SRCALPHA)
+
+        hand_rect = hand_surface.get_rect()
+
+        # Put the hand so its LEFT CENTER is exactly in the middle of canvas.
+        # This assumes your hand image points to the RIGHT.
+        hand_rect.midleft = (size // 2, size // 2)
+
+        canvas.blit(hand_surface, hand_rect)
+        return canvas
+
+    def draw_hand(self, hand_surface, angle):
+        rotatable = self.make_rotatable_hand(hand_surface)
+
+        # Pygame angle system:
+        # 0° points right, but clock 12 o'clock is up.
+        rotated = pygame.transform.rotate(rotatable, -angle + 90)
+
+        rect = rotated.get_rect(center=self.center)
+        self.screen.blit(rotated, rect)
 
     def draw_clock_face(self):
         self.screen.fill((255, 255, 255))
@@ -34,26 +60,15 @@ class MickeyClock:
         pygame.draw.circle(self.screen, (0, 0, 0), self.center, 170, 4)
         pygame.draw.circle(self.screen, (0, 0, 0), self.center, 8)
 
-    def draw_hand(self, hand_surface, angle, center_pos):
-        rotated = pygame.transform.rotate(hand_surface, angle)
-        rect = rotated.get_rect(center=center_pos)
-        self.screen.blit(rotated, rect)
-
     def draw_time_text(self, minute, second):
         text = self.font.render(f"{minute:02d}:{second:02d}", True, (20, 20, 20))
         rect = text.get_rect(center=(self.center[0], 40))
         self.screen.blit(text, rect)
 
     def draw(self):
-        minute, second, minute_angle, second_angle = self.get_time_data()
+        minute, second, minute_angle, second_angle = self.get_angles()
 
         self.draw_clock_face()
-
-        # Right hand = minutes
-        self.draw_hand(self.minute_hand, minute_angle, self.center)
-
-        # Left hand = seconds
-        # Slightly shifted so the two hands are visually different
-        self.draw_hand(self.second_hand, second_angle, (self.center[0] - 10, self.center[1] - 10))
-
+        self.draw_hand(self.minute_hand, minute_angle)
+        self.draw_hand(self.second_hand, second_angle)
         self.draw_time_text(minute, second)
